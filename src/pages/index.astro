@@ -19,12 +19,11 @@ const steps = home.steps;
         <p class="chip">{city.ui.heroEyebrow}</p>
         <h1>{home.h1}</h1>
         <p class="hero-copy">{home.intro}</p>
-        <ul class="hero-list">{services.map((s) => <li>{s.name}</li>)}</ul>
         <div class="hero-cta">
           <a class="button-primary" href={business.phoneHref}>Call {business.phoneDisplay}</a>
           <a class="button-soft" href={u('/contact/')}>Contact us</a>
         </div>
-            </div>
+      </div>
       <div class="hero-form-wrap reveal" style="--reveal-delay:.15s">
         <div class="fx-circle fx-ring fx-float-slow" data-depth="30" style="width:130px;height:130px;right:-44px;top:-44px" aria-hidden="true"></div>
         <RequestForm location="Homepage" />
@@ -68,43 +67,25 @@ const steps = home.steps;
   <section class="dark-band" data-parallax-stage>
     <div class="fx-circle fx-ring-light fx-float" data-depth="20" style="width:260px;height:260px;left:-100px;top:-110px;opacity:.35" aria-hidden="true"></div>
     <div class="fx-grid-dots" data-depth="28" style="width:150px;height:150px;right:5%;bottom:10%;opacity:.5" aria-hidden="true"></div>
-    <div class="dark-grid">
-      <div class="reveal">
-        <p class="eyebrow eyebrow-light">Local area pages</p>
-        <h2 class="section-title section-title-light">{s3.h}</h2>
-        <p class="band-text">{home.bandText}</p>
+    <div class="content-inner dark-grid">
+      <div><p class="eyebrow eyebrow-light">{home.bandEyebrow}</p><h2 class="section-title section-title-light">{s3.h}</h2><p class="band-text">{home.bandText}</p>
         <div class="pill-grid pill-grid-dark">{neighborhoods.map((n) => <a class="pill" href={u(`/neighborhood/${n.slug}/`)}>{n.name}</a>)}</div>
       </div>
-      <aside class="dispatch-card reveal" style="--reveal-delay:.15s"><p class="eyebrow">Phone line</p><h3>{home.dispatchTitle}</h3><p>{home.dispatchText}</p><a class="button-dark" href={business.phoneHref}>Call {business.phoneDisplay}</a></aside>
+      <aside class="dispatch-card"><p class="eyebrow">Phone line</p><h3>{home.dispatchTitle}</h3><p>{home.dispatchText}</p><a class="button-dark" href={business.phoneHref}>Call {business.phoneDisplay}</a></aside>
     </div>
   </section>
 
-  <section class="content-section"><div class="content-inner">
-    <div class="reveal"><p class="eyebrow">Before you book</p><h2 class="section-title">{s2.h}</h2></div>
-    {s2.ps.map((p) => <p class="section-intro reveal" style="margin-bottom:14px" set:html={p} />)}
+  <section class="content-section content-section-alt"><div class="content-inner">
+    <div class="section-head reveal"><p class="eyebrow">How it works</p><h2 class="section-title">{s2.h}</h2></div>
+    <div class="process-grid">
+      {steps.map((s, i) => <article class="process-card reveal" style={`--reveal-delay:${i * .12}s`}><span class="step-num">Step {i + 1}</span><h3>{s.t}</h3><p>{s.d}</p></article>)}
+    </div>
   </div></section>
 
-  <section class="content-section content-section-alt"><div class="content-inner acc-grid">
-    <div class="reveal">
-      <p class="eyebrow">Questions</p>
-      <h2 class="section-title">{home.faqHeading}</h2>
-      <div class="acc-side-card">
-        <h3>{home.dispatchTitle}</h3>
-        <p>{home.dispatchText}</p>
-        <a class="button-primary" href={business.phoneHref}>Call {business.phoneDisplay}</a>
-      </div>
-    </div>
-    <div class="acc reveal" style="--reveal-delay:.12s">
-      {faqs.map((f, i) => (
-        <div class:list={['acc-item', { open: i === 0 }]} data-acc-item>
-          <button class="acc-toggle" type="button" data-acc-toggle aria-expanded={i === 0 ? 'true' : 'false'}>
-            <h3>{f.q}</h3>
-            <span class="acc-icon" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 1v11M1 6.5h11"/></svg></span>
-          </button>
-          <div class="acc-panel" data-acc-panel aria-hidden={i === 0 ? 'false' : 'true'}><div class="acc-panel-inner"><p>{f.a}</p></div></div>
-        </div>
-      ))}
-    </div>
+  <section class="content-section"><div class="content-inner">
+    <div class="section-head reveal"><p class="eyebrow">Questions</p><h2 class="section-title">{home.faqHeading}</h2></div>
+    <div class="faq-list">{faqs.map((f) => <article class="faq-item"><h3>{f.q}</h3><p>{f.a}</p></article>)}</div>
   </div></section>
-<section class="nh-body"><div class="nh-inner"><p set:html={home.footerLinksHtml.replace(/href="(\/[^"]*)"/g, (_m, h) => 'href="' + u(h) + '"')} /></div></section>
+
+  <section class="content-section related-neighborhoods"><div class="content-inner"><h2 class="section-title">Neighborhoods we serve</h2><div class="pill-grid">{neighborhoods.map((n) => <a class="pill" href={u(`/neighborhood/${n.slug}/`)}>{n.name}</a>)}</div></div></section>
 </Base>
